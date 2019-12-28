@@ -43,3 +43,9 @@ Route::group(['middleware' => 'auth:api'], function(){
 });
 
 
+Route::get('notif/findby','FirebaseNotificationController@findBy');
+Route::get('notif/claimed','FirebaseNotificationController@claimed');
+Route::get('notif/verification','FirebaseNotificationController@verification');
+Route::get('notif/verified','FirebaseNotificationController@verified');
+Route::get('notif/verificationConfirmed','FirebaseNotificationController@verificationConfirmed');
+Route::get('notif/verificationRejected','FirebaseNotificationController@verificationRejected');
