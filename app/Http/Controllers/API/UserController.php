@@ -55,8 +55,8 @@ class UserController extends Controller
     }
 
      public function googleSignIn(Request $request){
-        $user = User::where('email',$request->email)->get();
-        if(empty($user)){
+        $user = User::where('email',$request->email)->first();
+        if(!empty($user)){
             if(Auth::attempt(['email' => request('email'), 'password' => request('email')])){
             $user = Auth::user();
             $user->fcm_token = request('fcm_token');
