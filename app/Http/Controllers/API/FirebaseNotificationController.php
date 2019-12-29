@@ -240,5 +240,10 @@ class FirebaseNotificationController extends Controller
         return $notification;
     }
 
+    public function allNotif(Request $request){
+        $notification = Notification::where('id_user',Auth::user()->id)->get();
+        return $notification;
+    }
+
     
 }
