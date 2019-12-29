@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 // });
 
 Route::post('login', 'API\UserController@login');
+Route::post('googleSignIn', 'API\UserController@googleSignIn');
 Route::post('register', 'API\UserController@register');
 Route::post('detail', 'API\UserController@detail');
 Route::post('gantipassword', 'API\UserController@gantipassword');

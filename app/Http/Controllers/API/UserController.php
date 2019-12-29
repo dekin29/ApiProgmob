@@ -54,6 +54,38 @@ class UserController extends Controller
         return response()->json($user, $this->successStatus);
     }
 
+     public function googleSignIn(Request $request){
+        $user = User::where('email',$request->email)->get();
+        if(empty($user)){
+            if(Auth::attempt(['email' => request('email'), 'password' => request('email')])){
+            $user = Auth::user();
+            $user->fcm_token = request('fcm_token');
+            $user->save();
+            $user['token'] =  $user->createToken('nApp')->accessToken;
+                return response()->json(['error' => FALSE, 'user' => $user], $this->successStatus);
+            }
+            else{
+                return response()->json(['error_msg'=>'Unauthorised'], 401);
+            }
+        } else {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->email);
+            $user->save();
+            if(Auth::attempt(['email' => request('email'), 'password' => request('email')])){
+            $user = Auth::user();
+            $user->fcm_token = request('fcm_token');
+            $user->save();
+            $user['token'] =  $user->createToken('nApp')->accessToken;
+                return response()->json(['error' => FALSE, 'user' => $user], $this->successStatus);
+            }
+            else{
+                return response()->json(['error_msg'=>'Unauthorised'], 401);
+            }
+        }
+    }
+
     public function gantipassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
